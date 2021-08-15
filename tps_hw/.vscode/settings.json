@@ -1,0 +1,16 @@
+{
+    "files.associations": {
+        "freertos.h": "c",
+        "freertosconfig.h": "c",
+        "portable.h": "c",
+        "projdefs.h": "c",
+        "portmacro.h": "c",
+        "xtensa_rtos.h": "c",
+        "xtensa_timer.h": "c",
+        "stdio.h": "c",
+        "xtruntime.h": "c",
+        "timers.h": "c",
+        "gpio.h": "c",
+        "datatypes.h": "c"
+    }
+}
