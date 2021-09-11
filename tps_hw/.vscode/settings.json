@@ -14,6 +14,8 @@
         "datatypes.h": "c",
         "esp_netif.h": "c",
         "esp_wifi_types.h": "c",
-        "sockets.h": "c"
+        "sockets.h": "c",
+        "esp_event.h": "c",
+        "stdint.h": "c"
     }
 }
