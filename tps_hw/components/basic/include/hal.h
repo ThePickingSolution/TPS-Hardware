@@ -18,5 +18,9 @@ void writeMessage(char* message, int8 line);
 
 // Altera o sinal do pino de Teste
 void set_LED(boolean signal);
+void get_pin();
+int verifica_incremento(int qtd);
+void verifica_decremento();
+void verifica_confirma();
 
 #endif

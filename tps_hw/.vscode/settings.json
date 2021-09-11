@@ -11,6 +11,9 @@
         "xtruntime.h": "c",
         "timers.h": "c",
         "gpio.h": "c",
-        "datatypes.h": "c"
+        "datatypes.h": "c",
+        "esp_netif.h": "c",
+        "esp_wifi_types.h": "c",
+        "sockets.h": "c"
     }
 }
