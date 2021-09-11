@@ -21,6 +21,6 @@ void set_LED(boolean signal);
 void get_pin();
 int verifica_incremento(int qtd);
 void verifica_decremento();
-void verifica_confirma();
+boolean verifica_confirma();
 
 #endif

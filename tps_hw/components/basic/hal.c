@@ -93,15 +93,24 @@ void verifica_decremento(){
 	fflush(stdout);
 }
 
-void verifica_confirma(){
-	if(gpio_get_level(GPIO_INPUT_IO_0) == 0){
-		printf("Aguardando botao\n");
-		while(gpio_get_level(GPIO_INPUT_IO_0) == 0){};
-		while(gpio_get_level(GPIO_INPUT_IO_0) == 1){};
-		printf("CONFIRMA\n");
-		gpio_set_level(GPIO_OUTPUT_IO_0,1);
+// void verifica_confirma(){
+// 	if(gpio_get_level(GPIO_INPUT_IO_0) == 0){
+// 		printf("Aguardando botao\n");
+// 		while(gpio_get_level(GPIO_INPUT_IO_0) == 0){};
+// 		while(gpio_get_level(GPIO_INPUT_IO_0) == 1){};
+// 		printf("CONFIRMA\n");
+// 		gpio_set_level(GPIO_OUTPUT_IO_0,1);
+// 	}
+// 	fflush(stdout);
+// }
+
+boolean verifica_confirma(){
+	boolean high = FALSE;
+	if(gpio_get_level(GPIO_INPUT_IO_0) == 1){
+		high = TRUE;
+		while(gpio_get_level(GPIO_INPUT_IO_0) == 1);
 	}
-	fflush(stdout);
+	return high;
 }
 
 
