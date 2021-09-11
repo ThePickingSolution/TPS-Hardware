@@ -149,11 +149,11 @@ static esp_err_t mqtt_event_handler_cb(esp_mqtt_event_handle_t event)
     switch (event->event_id) {
         case MQTT_EVENT_CONNECTED:
             ESP_LOGI(TAG, "MQTT_EVENT_CONNECTED");
-            msg_id = esp_mqtt_client_publish(client, "/topic/qos1", "SALVE", 0, 1, 0);
+            msg_id = esp_mqtt_client_publish(client, "/topic/tpstest", "SALVE", 0, 1, 0);
             ESP_LOGI(TAG, "sent publish successful, msg_id=%d", msg_id);
 
-            // msg_id = esp_mqtt_client_subscribe(client, "/topic/qos0", 0);
-            // ESP_LOGI(TAG, "sent subscribe successful, msg_id=%d", msg_id);
+            msg_id = esp_mqtt_client_subscribe(client, "/topic/tpstest", 0);
+            ESP_LOGI(TAG, "sent subscribe successful, msg_id=%d", msg_id);
 
             // msg_id = esp_mqtt_client_subscribe(client, "/topic/qos1", 1);
             // ESP_LOGI(TAG, "sent subscribe successful, msg_id=%d", msg_id);
@@ -177,9 +177,9 @@ static esp_err_t mqtt_event_handler_cb(esp_mqtt_event_handle_t event)
             // ESP_LOGI(TAG, "MQTT_EVENT_PUBLISHED, msg_id=%d", event->msg_id);
             break;
         case MQTT_EVENT_DATA:
-            // ESP_LOGI(TAG, "MQTT_EVENT_DATA");
-            // printf("TOPIC=%.*s\r\n", event->topic_len, event->topic);
-            // printf("DATA=%.*s\r\n", event->data_len, event->data);
+            //ESP_LOGI("dado recebido", event->data);
+            printf("TOPIC=%.*s\r\n", event->topic_len, event->topic);
+            printf("DATA=%.*s\r\n", event->data_len, event->data);
             break;
         case MQTT_EVENT_ERROR:
             ESP_LOGI(TAG, "MQTT_EVENT_ERROR");
@@ -203,31 +203,6 @@ static void mqtt_app_start(void)
         .port = 1883,
         //.transport = MQTT_TRANSPORT_OVER_TCP,
     };
-#if CONFIG_BROKER_URL_FROM_STDIN
-    char line[128];
-
-    if (strcmp(mqtt_cfg.uri, "FROM_STDIN") == 0) {
-        int count = 0;
-        printf("Please enter url of mqtt broker\n");
-        while (count < 128) {
-            int c = fgetc(stdin);
-            if (c == '\n') {
-                line[count] = '\0';
-                break;
-            } else if (c > 0 && c < 127) {
-                line[count] = c;
-                ++count;
-            }
-            vTaskDelay(10 / portTICK_PERIOD_MS);
-        }
-        mqtt_cfg.uri = line;
-        printf("Broker url: %s\n", line);
-    } else {
-        ESP_LOGE(TAG, "Configuration mismatch: wrong broker url");
-        abort();
-    }
-#endif /* CONFIG_BROKER_URL_FROM_STDIN */
-
     esp_mqtt_client_handle_t client = esp_mqtt_client_init(&mqtt_cfg);
     esp_mqtt_client_register_event(client, ESP_EVENT_ANY_ID, mqtt_event_handler, client);
     esp_mqtt_client_start(client);
