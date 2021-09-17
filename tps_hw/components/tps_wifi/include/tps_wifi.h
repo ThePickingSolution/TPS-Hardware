@@ -20,8 +20,8 @@
    If you'd rather not, just change the below entries to strings with
    the config you want - ie #define EXAMPLE_WIFI_SSID "mywifissid"
 */
-#define EXAMPLE_ESP_WIFI_SSID      "FE94_Oi_Fibra"
-#define EXAMPLE_ESP_WIFI_PASS      "9mEUY3p9"
+#define EXAMPLE_ESP_WIFI_SSID      "copel-65"
+#define EXAMPLE_ESP_WIFI_PASS      "72076500"
 #define EXAMPLE_ESP_MAXIMUM_RETRY  10
 
 
