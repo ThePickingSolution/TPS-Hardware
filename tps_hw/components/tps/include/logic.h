@@ -9,6 +9,6 @@ void incremento(void* params);
 void decremento(void* params);
 void confirma(void* params);
 
-void chegouMensagem(const char* mensagem);
+void chegouMensagem(char* mensagem);
 
 #endif // TPS_LOGIC_H

@@ -7,8 +7,6 @@ char* TPS_MQTT_TOPIC_SYS;
 
 esp_mqtt_client_handle_t client_handle;
 
-
-
 esp_err_t mqtt_event_handler_cb(esp_mqtt_event_handle_t event)
 {
     const char *TAG = "TPS";

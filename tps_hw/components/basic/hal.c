@@ -56,22 +56,25 @@ void set_LED(boolean signal){
 }
 
 void get_pin(){
-	if(gpio_get_level(GPIO_INPUT_IO_0) == 1){
-		printf("Apertado\n");
-		set_LED(TRUE);
-	}
-	else{
-		printf("N Apertado\n");
-		set_LED(FALSE);
-	}
-	fflush(stdout);
+	// if(gpio_get_level(GPIO_INPUT_IO_0) == 1){
+	// 	printf("Apertado\n");
+	// 	set_LED(TRUE);
+	// }
+	// else{
+	// 	printf("N Apertado\n");
+	// 	set_LED(FALSE);
+	// }
+	// fflush(stdout);
 }
+
+
+const TickType_t hal_delay_50ms = 50 / portTICK_PERIOD_MS;
 
 boolean verifica_incremento(){
 	boolean high = FALSE;
 	if(gpio_get_level(GPIO_INPUT_IO_1) == 1){
 		high = TRUE;
-		while(gpio_get_level(GPIO_INPUT_IO_1) == 1);
+		while(gpio_get_level(GPIO_INPUT_IO_1) == 1){ vTaskDelay(hal_delay_50ms);}
 	}
 	return high;
 }
@@ -80,48 +83,17 @@ boolean verifica_decremento(){
 	boolean high = FALSE;
 	if(gpio_get_level(GPIO_INPUT_IO_2) == 1){
 		high = TRUE;
-		while(gpio_get_level(GPIO_INPUT_IO_2) == 1);
+		while(gpio_get_level(GPIO_INPUT_IO_2) == 1){ vTaskDelay(hal_delay_50ms);}
 	}
 	return high;
 }
-
-// void verifica_confirma(){
-// 	if(gpio_get_level(GPIO_INPUT_IO_0) == 0){
-// 		printf("Aguardando botao\n");
-// 		while(gpio_get_level(GPIO_INPUT_IO_0) == 0){};
-// 		while(gpio_get_level(GPIO_INPUT_IO_0) == 1){};
-// 		printf("CONFIRMA\n");
-// 		gpio_set_level(GPIO_OUTPUT_IO_0,1);
-// 	}
-// 	fflush(stdout);
-// }
 
 boolean verifica_confirma(){
 	boolean high = FALSE;
 	if(gpio_get_level(GPIO_INPUT_IO_0) == 1){
 		high = TRUE;
-		while(gpio_get_level(GPIO_INPUT_IO_0) == 1);
+		while(gpio_get_level(GPIO_INPUT_IO_0) == 1) { vTaskDelay(hal_delay_50ms);}
 	}
 	return high;
 }
 
-
-
-
-// Retorna se o botão de confirmação está precionado
-boolean getConfirm(){
-	return FALSE;
-}
-// Retorna se o botão de incremento está precionado
-boolean getIncrement(){
-	return FALSE;
-}
-// Retorna se o botão de decremento está precionado
-boolean getDecrement(){
-	return FALSE;
-}
-
-// Escreve a mensagem para o usuario
-void writeMessage(char* message, int8 line){
-	//printf(message);
-}

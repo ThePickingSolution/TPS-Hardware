@@ -20,6 +20,8 @@
         "stdbool.h": "c",
         "string.h": "c",
         "mqtt_client.h": "c",
-        "esp_wifi.h": "c"
+        "esp_wifi.h": "c",
+        "chrono": "c",
+        "random": "c"
     }
 }
