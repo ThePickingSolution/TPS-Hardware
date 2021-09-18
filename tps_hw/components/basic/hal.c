@@ -14,7 +14,8 @@ Camada de Abstracao do Hardware (HAL) para execucao no Visual Studio
 #include "driver/gpio.h"
 
 #define GPIO_OUTPUT_IO_0    16
-#define GPIO_OUTPUT_PIN_SEL  1ULL<<GPIO_OUTPUT_IO_0
+#define GPIO_OUTPUT_IO_1    13
+#define GPIO_OUTPUT_PIN_SEL  ((1ULL<<GPIO_OUTPUT_IO_0) | (1ULL<<GPIO_OUTPUT_IO_1))
 #define GPIO_INPUT_IO_0     5
 #define GPIO_INPUT_IO_1     4
 #define GPIO_INPUT_IO_2     14
@@ -47,12 +48,16 @@ void initHAL(){
 	setup_led_pin();
 }
 
-void set_LED(boolean signal){
-	printf(signal ? "HIGH ":"LOW ");
+void set_LED_VERDE(boolean signal){
+	//printf(signal ? "HIGH ":"LOW ");
 	fflush(stdout);
-	
 	esp_err_t err = gpio_set_level(GPIO_OUTPUT_IO_0,signal ? 1:0);
-	printf("%d\n",err);
+}
+
+void set_LED_VERMELHO(boolean signal){
+	//printf(signal ? "HIGH ":"LOW ");
+	fflush(stdout);
+	esp_err_t err = gpio_set_level(GPIO_OUTPUT_IO_1,signal ? 1:0);
 }
 
 void get_pin(){

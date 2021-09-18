@@ -24,8 +24,8 @@
 // #define EXAMPLE_ESP_WIFI_SSID      "copel-65"
 // #define EXAMPLE_ESP_WIFI_PASS      "72076500"
 
-#define EXAMPLE_ESP_WIFI_SSID      "FE94_Oi_Fibra"
-#define EXAMPLE_ESP_WIFI_PASS      "9mEUY3p9"
+#define EXAMPLE_ESP_WIFI_SSID      "copel-65"
+#define EXAMPLE_ESP_WIFI_PASS      "72076500"
 
 #define EXAMPLE_ESP_MAXIMUM_RETRY  10
 

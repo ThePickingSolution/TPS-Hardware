@@ -22,6 +22,13 @@
         "mqtt_client.h": "c",
         "esp_wifi.h": "c",
         "chrono": "c",
-        "random": "c"
+        "random": "c",
+        "locale": "c",
+        "thread": "c",
+        "xlocale": "c",
+        "xlocmes": "c",
+        "xlocmon": "c",
+        "xlocnum": "c",
+        "xloctime": "c"
     }
 }
