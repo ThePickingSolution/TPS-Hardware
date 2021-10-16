@@ -12,4 +12,6 @@ boolean verifica_incremento();
 boolean verifica_decremento();
 boolean verifica_confirma();
 
+void envia_display(boolean rs, boolean data[8]);
+
 #endif
