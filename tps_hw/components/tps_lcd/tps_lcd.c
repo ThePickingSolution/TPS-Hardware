@@ -31,10 +31,12 @@ void lcd_set_data(TpsLcd_t *lcd, uint8 instruction);
 void lcd_init()
 {
     //lcd_execute(LCD_CMD,0x28);
-    lcd_limpar();
+    //lcd_limpar();
     lcd_off();
 
-    lcd_on();
+    //lcd_inicio_l1();
+    //lcd_execute(LCD_DATA, 0x4F);
+    //lcd_move_cursor(TRUE);
 }
 
 void lcd_escreve_l1(char *mensagem)
