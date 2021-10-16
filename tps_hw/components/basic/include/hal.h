@@ -8,7 +8,6 @@ void initHAL();
 // Altera o sinal do pino de Teste
 void set_LED_VERDE(boolean signal);
 void set_LED_VERMELHO(boolean signal);
-void get_pin();
 boolean verifica_incremento();
 boolean verifica_decremento();
 boolean verifica_confirma();
