@@ -26,9 +26,6 @@ void incremento(void *params)
             if (logic_valor > max)
                 logic_valor = max;
 
-            //char str[16];
-            //snprintf(str,16,"%d",logic_valor);
-
             printf("Quantidade = %d\n", logic_valor);
         }
         vTaskDelay(logic_task_delay_100ms);
@@ -68,11 +65,11 @@ void confirma(void *params)
             strcpy(msg_envia, msg_envia_default);
             strcat(msg_envia, msg);
             strcat(msg_envia, logic_id);
-            strcat(msg_envia, ";0;");
             strcat(msg_envia, quantidade);
             envia_mensagem(msg_envia);
-            set_LED_VERDE(FALSE);
-            set_LED_VERMELHO(FALSE);
+            //set_LED_VERDE(FALSE);
+            //set_LED_VERMELHO(FALSE);
+            printf("CONFIRMA\n");
         }
         vTaskDelay(logic_task_delay_100ms);
     }
@@ -80,43 +77,128 @@ void confirma(void *params)
 
 void chegouMensagem(char *mensagem)
 {
+    if (logic_id != NULL)
+        str_part_free(logic_id);
     char *msg = str_part(mensagem, '.', 0);
     printf("\nMensagem recebida:\n");
     printf(msg);
     char *command = str_part(msg, ';', 0);
-    if (logic_id != NULL)
-        str_part_free(logic_id);
-    logic_id = str_part(msg, ';', 1);
-    char *qtd = str_part(msg, ';', 6);
-    char *LED_VERDE = str_part(msg, ';', 3);
-    char *LED_VERMELHO = str_part(msg, ';', 4);
-    printf("\nComando:\n");
-    printf(command);
-    printf("\nId:\n");
-    printf(logic_id);
-    logic_valor = atoi(qtd);
-    max = logic_valor;
-    printf("\nQuantidade:\n");
-    printf("%d\n", logic_valor);
-    int verde = atoi(LED_VERDE);
-    int vermelho = atoi(LED_VERMELHO);
-    printf("Verde:\n");
-    printf("%d\n", verde);
-    printf("Vermelho:\n");
-    printf("%d\n", vermelho);
-    if (verde == 1)
-        set_LED_VERDE(TRUE);
-    else
-        set_LED_VERDE(FALSE);
 
-    if (vermelho == 1)
-        set_LED_VERMELHO(TRUE);
-    else
+    if (strcmp(command, "PICK") == 0)
+    {
+        logic_id = str_part(msg, ';', 1);
+        char *LED_VERDE = str_part(msg, ';', 2);
+        char *LED_VERMELHO = str_part(msg, ';', 3);
+        char *qtd = str_part(msg, ';', 4);
+        char *user = str_part(msg, ';', 5);
+        printf("\nComando:\n");
+        printf(command);
+        printf("\nId:\n");
+        printf(logic_id);
+        logic_valor = atoi(qtd);
+        max = logic_valor;
+        printf("\nQuantidade:\n");
+        printf("%d\n", logic_valor);
+        int verde = atoi(LED_VERDE);
+        int vermelho = atoi(LED_VERMELHO);
+        printf("Verde:\n");
+        printf("%d\n", verde);
+        printf("Vermelho:\n");
+        printf("%d\n", vermelho);
+        printf("Usuario:\n");
+        printf(user);
+        if (verde == 1)
+            set_LED_VERDE(TRUE);
+        else
+            set_LED_VERDE(FALSE);
+
+        if (vermelho == 1)
+            set_LED_VERMELHO(TRUE);
+        else
         set_LED_VERMELHO(FALSE);
+        str_part_free(LED_VERMELHO);
+        str_part_free(LED_VERDE);
+        ///////
+    }
+
+    if (strcmp(command, "CONFIRM") == 0)
+    {
+        logic_id = str_part(msg, ';', 1);
+        char *qtd = str_part(msg, ';', 2);
+        printf("\nComando:\n");
+        printf(command);
+        printf("\nId:\n");
+        printf(logic_id);
+        logic_valor = atoi(qtd);
+        max = logic_valor;
+        printf("\nQuantidade:\n");
+        printf("%d\n", logic_valor);
+    }
+
+    if (strcmp(command, "REJECTED") == 0)
+    {
+        logic_id = str_part(msg, ';', 1);
+        printf("\nComando:\n");
+        printf(command);
+        printf("\nId:\n");
+        printf(logic_id);
+    }
+
+    if (strcmp(command, "DONE") == 0)
+    {
+        logic_id = str_part(msg, ';', 1);
+        printf("\nComando:\n");
+        printf(command);
+        printf("\nId:\n");
+        printf(logic_id);
+    }
+
+    if (strcmp(command, "APPROVE") == 0)
+    {
+        logic_id = str_part(msg, ';', 1);
+        printf("\nComando:\n");
+        printf(command);
+        printf("\nId:\n");
+        printf(logic_id);
+    }
+
+    if (strcmp(command, "REJECT") == 0)
+    {
+        logic_id = str_part(msg, ';', 1);
+        char *justificativa = str_part(msg, ';', 2);
+        printf("\nComando:\n");
+        printf(command);
+        printf("\nId:\n");
+        printf(logic_id);
+        printf("\nJustificativa:\n");
+        printf(justificativa);
+    }
+
+    if (strcmp(command, "CANCEL") == 0)
+    {
+        logic_id = str_part(msg, ';', 1);
+        printf("\nComando:\n");
+        printf(command);
+        printf("\nId:\n");
+        printf(logic_id);
+    }
+
+    if (strcmp(command, "ERROR") == 0)
+    {
+        logic_id = str_part(msg, ';', 1);
+        char *error_msg = str_part(msg, ';', 2);
+        printf("\nComando:\n");
+        printf(command);
+        printf("\nId:\n");
+        printf(logic_id);
+        printf("\nErro:\n");
+        printf(error_msg);
+    }
+    
+
     //Libera memoria alocada !importante!
     str_part_free(msg);
     str_part_free(command);
-    str_part_free(qtd);
-    str_part_free(LED_VERMELHO);
-    str_part_free(LED_VERDE);
+
+
 }
