@@ -13,14 +13,14 @@ Camada de Abstracao do Hardware (HAL) para execucao no Visual Studio
 #include "esp_log.h"
 #include "driver/gpio.h"
 
-#define GPIO_OUTPUT_IO_0 4 
+#define GPIO_OUTPUT_IO_0 16 
 #define GPIO_OUTPUT_IO_1 5 
 #define GPIO_OUTPUT_IO_2 15 
 #define GPIO_OUTPUT_IO_3 13 
 #define GPIO_OUTPUT_IO_4 12 
 #define GPIO_OUTPUT_IO_5 14 
 #define GPIO_OUTPUT_IO_6 2 
-#define GPIO_INPUT_IO_0 16	
+#define GPIO_INPUT_IO_0 4	
 #define GPIO_INPUT_IO_1 3	
 #define GPIO_INPUT_IO_2 0
 
@@ -62,7 +62,7 @@ void initHAL()
 
 void set_LED_VERMELHO(boolean signal)
 {
-	esp_err_t err = gpio_set_level(GPIO_OUTPUT_IO_1, signal ? 1 : 0);
+	esp_err_t err = gpio_set_level(GPIO_OUTPUT_IO_6, signal ? 1 : 0);
 }
 
 boolean verifica_incremento()

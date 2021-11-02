@@ -6,7 +6,7 @@
 #define LCD_D5 12
 #define LCD_D4 14
 
-#define LCD_RS 4
+#define LCD_RS 16
 #define LCD_EN 5
 
 

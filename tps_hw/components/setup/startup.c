@@ -16,6 +16,7 @@ const char *TOPIC_SYS = "/tps/pickingface/001/sys";
 
 //****************** PARA DAR FLASH********************
 // COLOCAR D3 EM GND, DAR FLASH, QUANDO ACABAR COLOCAR D3 EM VCC E APERTAR RST
+// DESCONECTAR PINO GPIO3
 
 void initSetup()
 {
@@ -29,7 +30,7 @@ void initSetup()
     envia_mensagem("MQTT OK");
     LCD_init();
     lcd_locate(0, 0);
-	lcd_str("TEST 3 bora");
+	lcd_str("TEST 4");
 	ESP_LOGI("The Picking Solution", "LCD OK");
     set_LED_VERMELHO(TRUE);
     xTaskCreate(

@@ -6,6 +6,8 @@
 #include "portmacro.h"
 #include "tps_mqtt.h"
 #include "util_string.h"
+#include "esp_heap_caps.h"
+#include "lcd.h"
 
 int logic_valor = 0;
 int max = 0;
@@ -52,23 +54,27 @@ void decremento(void *params)
 void confirma(void *params)
 {
     printf("TASK CONFIRMA\n");
-    char *msg_envia_default = calloc(50, sizeof(char));
+    //char *msg_envia_default = calloc(50, sizeof(char));
     for (;;)
     {
-        if (verifica_confirma())
+        if (verifica_confirma() && (logic_id != NULL))
         {
             char *msg = "CONFIRM;";
-            char msg_envia[50];
+            char *msg_envia = heap_caps_calloc(50, sizeof(char), MALLOC_CAP_8BIT);
             char quantidade[3];
+            char *msg_pos = &(msg_envia[0]);
             itoa(logic_valor, quantidade, 10);
-            strcpy(msg_envia, msg_envia_default);
-            strcat(msg_envia, msg);
-            strcat(msg_envia, logic_id);
-            strcat(msg_envia, quantidade);
-            envia_mensagem(msg_envia);
-            //set_LED_VERDE(FALSE);
-            //set_LED_VERMELHO(FALSE);
+            //strcpy(msg_envia, msg_envia_default);
+            strcat(msg_pos, msg);
+            strcat(msg_pos, logic_id);
+            strcat(msg_pos, ";");
+            strcat(msg_pos, quantidade);
+            envia_mensagem(msg_pos);
+            str_part_free(msg_envia);
+
             printf("CONFIRMA\n");
+            logic_id = NULL;
+            
         }
         vTaskDelay(logic_task_delay_100ms);
     }
@@ -105,6 +111,10 @@ void chegouMensagem(char *mensagem)
         printf("Vermelho:\n");
         printf("%d\n", vermelho);
         printf("Usuario:\n");
+        lcd_locate(0, 0);
+	    lcd_str("PICKING");
+        lcd_locate(1, 0);
+	    lcd_str(qtd);
         printf(user);
         if (vermelho == 1)
             set_LED_VERMELHO(TRUE);
@@ -154,6 +164,9 @@ void chegouMensagem(char *mensagem)
         printf(command);
         printf("\nId:\n");
         printf(logic_id);
+        lcd_locate(0, 0);
+	    lcd_str("CONFIRMA");
+        set_LED_VERMELHO(FALSE);
     }
 
     if (strcmp(command, "REJECT") == 0)
@@ -166,6 +179,8 @@ void chegouMensagem(char *mensagem)
         printf(logic_id);
         printf("\nJustificativa:\n");
         printf(justificativa);
+        lcd_locate(0, 0);
+	    lcd_str("REJEITADO");
     }
 
     if (strcmp(command, "CANCEL") == 0)
@@ -175,6 +190,8 @@ void chegouMensagem(char *mensagem)
         printf(command);
         printf("\nId:\n");
         printf(logic_id);
+        lcd_locate(0, 0);
+	    lcd_str("CANCELADO");
     }
 
     if (strcmp(command, "ERROR") == 0)
@@ -187,6 +204,8 @@ void chegouMensagem(char *mensagem)
         printf(logic_id);
         printf("\nErro:\n");
         printf(error_msg);
+        lcd_locate(0, 0);
+	    lcd_str("ERRO");
     }
     
 
