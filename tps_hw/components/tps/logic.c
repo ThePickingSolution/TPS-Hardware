@@ -6,7 +6,6 @@
 #include "portmacro.h"
 #include "tps_mqtt.h"
 #include "util_string.h"
-#include "tps_lcd.h"
 
 int logic_valor = 0;
 int max = 0;
@@ -107,11 +106,6 @@ void chegouMensagem(char *mensagem)
         printf("%d\n", vermelho);
         printf("Usuario:\n");
         printf(user);
-        if (verde == 1)
-            set_LED_VERDE(TRUE);
-        else
-            set_LED_VERDE(FALSE);
-
         if (vermelho == 1)
             set_LED_VERMELHO(TRUE);
         else

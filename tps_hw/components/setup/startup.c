@@ -6,7 +6,7 @@
 #include "task.h"
 #include "logic.h"
 #include "esp_log.h"
-#include "tps_lcd.h"
+#include "lcd.h"
 
 #include "tps_mqtt.h"
 #include "tps_wifi.h"
@@ -23,11 +23,15 @@ void initSetup()
     initHAL();
     //lcd_init();
     ESP_LOGI("The Picking Solution", "INIT HAL OK");
-    set_LED_VERDE(FALSE);
     set_LED_VERMELHO(FALSE);
     initWifi();
     initMqtt(TOPIC_ESP, TOPIC_SYS);
     envia_mensagem("MQTT OK");
+    LCD_init();
+    lcd_locate(0, 0);
+	lcd_str("TEST 3 bora");
+	ESP_LOGI("The Picking Solution", "LCD OK");
+    set_LED_VERMELHO(TRUE);
     xTaskCreate(
         confirma,  /* Function that implements the task. */
         "T1",      /* Text name for the task. */

@@ -13,22 +13,19 @@ Camada de Abstracao do Hardware (HAL) para execucao no Visual Studio
 #include "esp_log.h"
 #include "driver/gpio.h"
 
-#define GPIO_OUTPUT_IO_0 16 //D0
-#define GPIO_OUTPUT_IO_1 13 //D7
-#define GPIO_INPUT_IO_0 5	
-#define GPIO_INPUT_IO_1 4	//D2
-#define GPIO_INPUT_IO_2 14	//D5
-
-// #define GPIO_LCD_EN 10 
-// #define GPIO_LCD_RS 12 //D6
-// #define GPIO_LCD_D4 15 //D8
-// #define GPIO_LCD_D5 3  //RX
-// #define GPIO_LCD_D6 1  //TX
-// #define GPIO_LCD_D7 9  //SD2
+#define GPIO_OUTPUT_IO_0 4 
+#define GPIO_OUTPUT_IO_1 5 
+#define GPIO_OUTPUT_IO_2 15 
+#define GPIO_OUTPUT_IO_3 13 
+#define GPIO_OUTPUT_IO_4 12 
+#define GPIO_OUTPUT_IO_5 14 
+#define GPIO_OUTPUT_IO_6 2 
+#define GPIO_INPUT_IO_0 16	
+#define GPIO_INPUT_IO_1 3	
+#define GPIO_INPUT_IO_2 0
 
 #define GPIO_INPUT_PIN_SEL ((1ULL << GPIO_INPUT_IO_0) | (1ULL << GPIO_INPUT_IO_1) | (1ULL << GPIO_INPUT_IO_2))
-//#define GPIO_OUTPUT_PIN_SEL ((1ULL << GPIO_OUTPUT_IO_0) | (1ULL << GPIO_OUTPUT_IO_1) | (1ULL << GPIO_LCD_EN) | (1ULL << GPIO_LCD_RS) | (1ULL << GPIO_LCD_D4) | (1ULL << GPIO_LCD_D5) | (1ULL << GPIO_LCD_D6) | (1ULL << GPIO_LCD_D7))
-#define GPIO_OUTPUT_PIN_SEL ((1ULL << GPIO_OUTPUT_IO_0) | (1ULL << GPIO_OUTPUT_IO_1))
+#define GPIO_OUTPUT_PIN_SEL ((1ULL << GPIO_OUTPUT_IO_0) | (1ULL << GPIO_OUTPUT_IO_1) | (1ULL << GPIO_OUTPUT_IO_2) | (1ULL << GPIO_OUTPUT_IO_3) | (1ULL << GPIO_OUTPUT_IO_4) | (1ULL << GPIO_OUTPUT_IO_5) | (1ULL << GPIO_OUTPUT_IO_6))
 const TickType_t hal_delay_50ms = 50 / portTICK_PERIOD_MS;
 const TickType_t hal_delay_20ms = 20 / portTICK_PERIOD_MS;
 
@@ -61,11 +58,6 @@ void initHAL()
 	ESP_LOGI("The Picking Solution", "setup_leds_pins() OK");
 	setup_btns_pins();
 	ESP_LOGI("The Picking Solution", "setup_btns_pins() OK");
-}
-
-void set_LED_VERDE(boolean signal)
-{
-	esp_err_t err = gpio_set_level(GPIO_OUTPUT_IO_0, signal ? 1 : 0);
 }
 
 void set_LED_VERMELHO(boolean signal)
