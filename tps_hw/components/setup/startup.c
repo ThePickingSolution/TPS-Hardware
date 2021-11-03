@@ -30,7 +30,9 @@ void initSetup()
     envia_mensagem("MQTT OK");
     LCD_init();
     lcd_locate(0, 0);
-	lcd_str("TEST 4");
+	lcd_str("TPS");
+    lcd_locate(1, 0);
+	lcd_str("Bem Vindo!");
 	ESP_LOGI("The Picking Solution", "LCD OK");
     set_LED_VERMELHO(TRUE);
     xTaskCreate(

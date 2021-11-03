@@ -26,8 +26,12 @@ void incremento(void *params)
             logic_valor = logic_valor + 1;
             if (logic_valor > max)
                 logic_valor = max;
-
             printf("Quantidade = %d\n", logic_valor);
+            char quantidade[3];
+            itoa(logic_valor, quantidade, 10);
+            lcd_limpa();
+            lcd_locate(1, 0);
+	        lcd_str(quantidade);
         }
         vTaskDelay(logic_task_delay_100ms);
     }
@@ -46,6 +50,11 @@ void decremento(void *params)
             if (logic_valor < 0)
                 logic_valor = 0;
             printf("Quantidade = %d\n", logic_valor);
+            char quantidade[3];
+            itoa(logic_valor, quantidade, 10);
+            lcd_limpa();
+            lcd_locate(1, 0);
+	        lcd_str(quantidade);
         }
         vTaskDelay(logic_task_delay_100ms);
     }
@@ -71,7 +80,6 @@ void confirma(void *params)
             strcat(msg_pos, quantidade);
             envia_mensagem(msg_pos);
             str_part_free(msg_envia);
-
             printf("CONFIRMA\n");
             logic_id = NULL;
             
@@ -111,6 +119,7 @@ void chegouMensagem(char *mensagem)
         printf("Vermelho:\n");
         printf("%d\n", vermelho);
         printf("Usuario:\n");
+        lcd_limpa();
         lcd_locate(0, 0);
 	    lcd_str("PICKING");
         lcd_locate(1, 0);
@@ -164,6 +173,7 @@ void chegouMensagem(char *mensagem)
         printf(command);
         printf("\nId:\n");
         printf(logic_id);
+        lcd_limpa();
         lcd_locate(0, 0);
 	    lcd_str("CONFIRMA");
         set_LED_VERMELHO(FALSE);
@@ -179,6 +189,7 @@ void chegouMensagem(char *mensagem)
         printf(logic_id);
         printf("\nJustificativa:\n");
         printf(justificativa);
+        lcd_limpa();
         lcd_locate(0, 0);
 	    lcd_str("REJEITADO");
     }
@@ -190,6 +201,7 @@ void chegouMensagem(char *mensagem)
         printf(command);
         printf("\nId:\n");
         printf(logic_id);
+        lcd_limpa();
         lcd_locate(0, 0);
 	    lcd_str("CANCELADO");
     }
@@ -204,6 +216,7 @@ void chegouMensagem(char *mensagem)
         printf(logic_id);
         printf("\nErro:\n");
         printf(error_msg);
+        lcd_limpa();
         lcd_locate(0, 0);
 	    lcd_str("ERRO");
     }

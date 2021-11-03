@@ -101,3 +101,11 @@ void lcd_locate(unsigned char x, unsigned char y)
   unsigned char xy = y+x * 0x40;
   LCD_cmd((xy | 0x80));
 }
+
+void lcd_limpa()
+{
+  lcd_locate(0, 0);
+	lcd_str("                ");
+  lcd_locate(1, 0);
+	lcd_str("                ");
+}

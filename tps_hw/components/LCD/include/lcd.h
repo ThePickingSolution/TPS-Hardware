@@ -54,3 +54,4 @@ void LCD_init();
 void LCD_cls();
 void lcd_locate(unsigned char x, unsigned char y);
 void lcd_str(char * str);
+void lcd_limpa();
