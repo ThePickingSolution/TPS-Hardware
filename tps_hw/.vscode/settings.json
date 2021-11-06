@@ -29,6 +29,10 @@
         "xlocmes": "c",
         "xlocmon": "c",
         "xlocnum": "c",
-        "xloctime": "c"
+        "xloctime": "c",
+        "logic.h": "c",
+        "algorithm": "c",
+        "limits": "c",
+        "utility": "c"
     }
 }

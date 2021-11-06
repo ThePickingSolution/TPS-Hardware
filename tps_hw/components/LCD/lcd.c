@@ -3,6 +3,8 @@
 #include "driver/gpio.h"
 #include "freertos/FreeRTOS.h"
 #include "lcd.h"
+#include "esp_log.h"
+
 void enable_pulse(void)
 {
   EN_LOW;
@@ -13,28 +15,33 @@ void enable_pulse(void)
   os_delay_us(100);
 }
 
-
 void LCD_sendHalf(unsigned char data)
 {
-  if (data&(1<<0)) gpio_set_level(LCD_D4, 1);
-  else gpio_set_level(LCD_D4, 0);
+  if (data & (1 << 0))
+    gpio_set_level(LCD_D4, 1);
+  else
+    gpio_set_level(LCD_D4, 0);
 
-  if (data&(1<<1)) gpio_set_level(LCD_D5, 1);
-  else gpio_set_level(LCD_D5, 0);
+  if (data & (1 << 1))
+    gpio_set_level(LCD_D5, 1);
+  else
+    gpio_set_level(LCD_D5, 0);
 
-  if (data&(1<<2)) gpio_set_level(LCD_D6, 1);
-  else gpio_set_level(LCD_D6, 0);
+  if (data & (1 << 2))
+    gpio_set_level(LCD_D6, 1);
+  else
+    gpio_set_level(LCD_D6, 0);
 
-  if (data&(1<<3)) gpio_set_level(LCD_D7, 1);
-  else gpio_set_level(LCD_D7, 0);
-
+  if (data & (1 << 3))
+    gpio_set_level(LCD_D7, 1);
+  else
+    gpio_set_level(LCD_D7, 0);
 }
-
 
 void LCD_sendByte(unsigned char data)
 {
   EN_HIGH;
-  LCD_sendHalf(data>>4);
+  LCD_sendHalf(data >> 4);
   EN_LOW;
 
   EN_HIGH;
@@ -42,7 +49,6 @@ void LCD_sendByte(unsigned char data)
   EN_LOW;
   os_delay_us(120);
 }
-
 
 void LCD_cmd(unsigned char cmd)
 {
@@ -60,7 +66,6 @@ void LCD_cls(void)
 {
   LCD_cmd(0x01);
 }
-
 
 void LCD_init()
 {
@@ -88,24 +93,26 @@ void LCD_init()
   LCD_cmd(LCDC_ENTRY | LCDC_ENTRYR);
 }
 
-
 // Send string to screen
-void lcd_str(char * str)
+void lcd_str(char *str)
 {
-  while (*str) LCD_data(*str++);
+  while (*str)
+    LCD_data(*str++);
+  ESP_LOGI("The Picking Solution - LCD", str);
 }
 
 // Locate cursor position
 void lcd_locate(unsigned char x, unsigned char y)
 {
-  unsigned char xy = y+x * 0x40;
+  unsigned char xy = y + x * 0x40;
   LCD_cmd((xy | 0x80));
 }
 
 void lcd_limpa()
 {
-  lcd_locate(0, 0);
-	lcd_str("                ");
   lcd_locate(1, 0);
-	lcd_str("                ");
+  lcd_str("                ");
+  lcd_locate(0, 0);
+  lcd_str("                ");
+  lcd_locate(0, 0);
 }
